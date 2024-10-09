@@ -17,12 +17,12 @@ build:
 requirements:
   host:
     - pip
-    - python
+    - python >=3.4
     - setuptools
   run:
     - numba
     - numpy <2.0.0a0
-    - python
+    - python >=3.4
     - scipy
     - tqdm
 
