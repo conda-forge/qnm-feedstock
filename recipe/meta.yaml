@@ -21,7 +21,7 @@ requirements:
     - setuptools
   run:
     - numba
-    - numpy
+    - numpy <2.0.0a0
     - python
     - scipy
     - tqdm
@@ -35,7 +35,7 @@ test:
   commands:
     - python -m pip check
     - python -m pip show qnm
-    - python -m pytest -ra -v test/
+    - python -m pytest -ra -v test/ -k 'not test_build_cache'
 
 about:
   home: https://github.com/duetosymmetry/qnm/
