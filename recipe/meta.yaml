@@ -2,40 +2,47 @@
 {% set version = "0.4.3" %}
 
 package:
-  name: "{{ name|lower }}"
-  version: "{{ version }}"
+  name: {{ name|lower }}
+  version: {{ version }}
 
 source:
-  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 6fd017c2acb25b1ba3a4c00fe8a70a5f0fe90e0cf7d407e45842e5b33f8cf47b
 
 build:
   noarch: python
   number: 1
-  script: "{{ PYTHON }} -m pip install --no-deps --ignore-installed . -vv"
+  script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
     - python
+    - setuptools
   run:
     - numba
     - numpy
-    - pathlib2
     - python
     - scipy
     - tqdm
 
 test:
-  imports:
-    - qnm
+  requires:
+    - pip
+    - pytest
+  source_files:
+    - test/
+  commands:
+    - python -m pip check
+    - python -m pip show qnm
+    - python -m pytest -ra -v test/
 
 about:
-  home: "https://github.com/duetosymmetry/qnm/"
+  home: https://github.com/duetosymmetry/qnm/
   license: MIT
   license_family: MIT
-  license_file: "LICENSE"
-  summary: "Package for computing Kerr quasinormal mode frequencies, separation constants, and spherical-spheroidal mixing coefficients"
+  license_file: LICENSE
+  summary: Package for computing Kerr quasinormal mode frequencies, separation constants, and spherical-spheroidal mixing coefficients
   description: |
     qnm is an open-source Python package for computing the Kerr
     quasinormal mode frequencies, angular separation constants,
@@ -43,8 +50,8 @@ about:
     includes a Leaver solver with the Cook-Zalutskiy spectral approach
     to the angular sector, and a caching mechanism to avoid repeating
     calculations.
-  doc_url: "https://qnm.readthedocs.io/"
-  dev_url: "https://github.com/duetosymmetry/qnm/"
+  doc_url: https://qnm.readthedocs.io/
+  dev_url: https://github.com/duetosymmetry/qnm/
 
 extra:
   recipe-maintainers:
