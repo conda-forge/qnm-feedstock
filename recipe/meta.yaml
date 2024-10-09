@@ -2,43 +2,48 @@
 {% set version = "0.4.4" %}
 
 package:
-  name: "{{ name|lower }}"
-  version: "{{ version }}"
+  name: {{ name|lower }}
+  version: {{ version }}
 
 source:
-  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 53332a654858633cc67d09731b8c2817b72ed48f6dabede5f583bf3a7652aee6
 
 build:
   noarch: python
-  number: 0
-  script: "{{ PYTHON }} -m pip install --no-deps --ignore-installed . -vv"
+  number: 1
+  script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
     - pip
-    - setuptools
     - python {{ python_min }}
+    - setuptools
   run:
     - numba
     - numpy
-    - pathlib2
     - python >={{ python_min }}
     - scipy
     - tqdm
 
 test:
   requires:
+    - pip
+    - pytest
     - python {{ python_min }}
-  imports:
-    - qnm
+  source_files:
+    - test/
+  commands:
+    - python -m pip check
+    - python -m pip show qnm
+    - python -m pytest -ra -v test/ -m 'not slow'
 
 about:
-  home: "https://github.com/duetosymmetry/qnm/"
+  home: https://github.com/duetosymmetry/qnm/
   license: MIT
   license_family: MIT
-  license_file: "LICENSE"
-  summary: "Package for computing Kerr quasinormal mode frequencies, separation constants, and spherical-spheroidal mixing coefficients"
+  license_file: LICENSE
+  summary: Package for computing Kerr quasinormal mode frequencies, separation constants, and spherical-spheroidal mixing coefficients
   description: |
     qnm is an open-source Python package for computing the Kerr
     quasinormal mode frequencies, angular separation constants,
@@ -46,8 +51,8 @@ about:
     includes a Leaver solver with the Cook-Zalutskiy spectral approach
     to the angular sector, and a caching mechanism to avoid repeating
     calculations.
-  doc_url: "https://qnm.readthedocs.io/"
-  dev_url: "https://github.com/duetosymmetry/qnm/"
+  doc_url: https://qnm.readthedocs.io/
+  dev_url: https://github.com/duetosymmetry/qnm/
 
 extra:
   recipe-maintainers:
