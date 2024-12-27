@@ -11,22 +11,24 @@ source:
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: "{{ PYTHON }} -m pip install --no-deps --ignore-installed . -vv"
 
 requirements:
   host:
     - pip
-    - python
+    - python {{ python_min }}
   run:
     - numba
     - numpy
     - pathlib2
-    - python
+    - python >={{ python_min }}
     - scipy
     - tqdm
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - qnm
 
