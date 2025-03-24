@@ -1,5 +1,5 @@
 {% set name = "qnm" %}
-{% set version = "0.4.3" %}
+{% set version = "0.4.4" %}
 
 package:
   name: "{{ name|lower }}"
@@ -7,11 +7,11 @@ package:
 
 source:
   url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
-  sha256: 6fd017c2acb25b1ba3a4c00fe8a70a5f0fe90e0cf7d407e45842e5b33f8cf47b
+  sha256: 53332a654858633cc67d09731b8c2817b72ed48f6dabede5f583bf3a7652aee6
 
 build:
   noarch: python
-  number: 1
+  number: 0
   script: "{{ PYTHON }} -m pip install --no-deps --ignore-installed . -vv"
 
 requirements:
