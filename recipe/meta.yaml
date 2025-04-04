@@ -23,7 +23,7 @@ requirements:
     - numba
     - numpy
     - python >={{ python_min }}
-    - scipy
+    - scipy <1.14.0a0
     - tqdm
 
 test:
